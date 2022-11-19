@@ -1,4 +1,4 @@
-import { searchCep } from './helpers/cepFunctions';
+import { getAddress, searchCep } from './helpers/cepFunctions';
 import { fetchProduct, fetchProductsList } from './helpers/fetchFunctions';
 import { createCartProductElement, createProductElement } from './helpers/shopFunctions';
 import { getSavedCartIDs } from './helpers/cartFunctions';
@@ -54,3 +54,15 @@ savedCartIDs.forEach(async (savedCartId) => {
   const product = createCartProductElement(productDetails);
   cartProducts.appendChild(product);
 });
+
+const totalPrice = document.querySelector('.total-price');
+const totalPriceValue = localStorage.getItem('totalPrice');
+totalPrice.innerText = totalPriceValue;
+
+const elementoEndereco = document.querySelector('.cart__address');
+const end = await getAddress('01001000');
+elementoEndereco.innerText = end;
+
+const cepInput = document.querySelector('.cep-input');
+console.log(cepInput);
+

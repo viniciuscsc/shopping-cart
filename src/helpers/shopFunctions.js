@@ -46,9 +46,18 @@ export const getIdFromProduct = (product) => (
  * @param {Element} li - Elemento do produto a ser removido do carrinho.
  * @param {string} id - ID do produto a ser removido do carrinho.
  */
-const removeCartProduct = (li, id) => {
+
+const totalPrice = document.querySelector('.total-price');
+
+const removeCartProduct = async (li, id) => {
   li.remove();
   removeCartID(id);
+
+  const productDetails = await fetchProduct(id);
+  let totalPriceValue = Number(totalPrice.innerText);
+  totalPriceValue -= Number(productDetails.price);
+  totalPrice.innerText = totalPriceValue;
+  localStorage.setItem('totalPrice', totalPriceValue);
 };
 
 /**
@@ -132,6 +141,11 @@ export const createProductElement = ({ id, title, thumbnail, price }) => {
     const productDetails = await fetchProduct(productId);
     const product = createCartProductElement(productDetails);
     cartProducts.appendChild(product);
+
+    let totalPriceValue = Number(totalPrice.innerText);
+    totalPriceValue += Number(productDetails.price);
+    totalPrice.innerText = totalPriceValue;
+    localStorage.setItem('totalPrice', totalPriceValue);
   });
 
   return section;
