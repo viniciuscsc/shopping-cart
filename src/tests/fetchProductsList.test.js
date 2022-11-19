@@ -22,7 +22,7 @@ describe('Teste a função fetchProductsList', () => {
     expect(response).toEqual(computadorSearch);
   });
 
-  it('Retorna um erro com a mensagem "Termo de busca não informado" se chamar a função sem argumento', async () => {
+  it('Retorna um erro com a mensagem "Termo de busca não informado" ao chamar a função sem argumento', async () => {
     try {
       await fetchProductsList();
     }
