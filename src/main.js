@@ -65,4 +65,3 @@ elementoEndereco.innerText = end;
 
 const cepInput = document.querySelector('.cep-input');
 console.log(cepInput);
-
