@@ -129,11 +129,8 @@ export const createProductElement = ({ id, title, thumbnail, price }) => {
   cartButton.addEventListener('click', async (event) => {
     const productId = event.target.parentElement.firstChild.innerText;
     saveCartID(productId);
-
     const productDetails = await fetchProduct(productId);
-
     const product = createCartProductElement(productDetails);
-
     cartProducts.appendChild(product);
   });
 

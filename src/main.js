@@ -1,6 +1,7 @@
 import { searchCep } from './helpers/cepFunctions';
-import { fetchProductsList } from './helpers/fetchFunctions';
-import { createProductElement } from './helpers/shopFunctions';
+import { fetchProduct, fetchProductsList } from './helpers/fetchFunctions';
+import { createCartProductElement, createProductElement } from './helpers/shopFunctions';
+import { getSavedCartIDs } from './helpers/cartFunctions';
 import './style.css';
 
 document.querySelector('.cep-button').addEventListener('click', searchCep);
@@ -15,7 +16,6 @@ const displaysLoadingMessage = () => {
   loadingMessage.classList.add('loading');
   productsSection.appendChild(loadingMessage);
 };
-
 displaysLoadingMessage();
 
 // criar função para retirar o texto 'carregando' depois do carregamento dos produtos na tela
@@ -44,5 +44,13 @@ const getProductsList = async () => {
     removeLoadingMessage();
   }
 };
-
 getProductsList();
+
+const cartProducts = document.querySelector('ol');
+
+const savedCartIDs = getSavedCartIDs();
+savedCartIDs.forEach(async (savedCartId) => {
+  const productDetails = await fetchProduct(savedCartId);
+  const product = createCartProductElement(productDetails);
+  cartProducts.appendChild(product);
+});
