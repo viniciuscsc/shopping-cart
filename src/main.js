@@ -15,19 +15,34 @@ const displaysLoadingMessage = () => {
   loadingMessage.classList.add('loading');
   productsSection.appendChild(loadingMessage);
 };
+
 displaysLoadingMessage();
-
-// cria o array com a lista de produtos importada da API
-const productsList = await fetchProductsList('computador');
-
-// para cada produto da lista, adiciona o produto, formatado pela função createProductElement, ao html
-productsList.forEach((product) => {
-  productsSection.appendChild(createProductElement(product));
-});
 
 // criar função para retirar o texto 'carregando' depois do carregamento dos produtos na tela
 const removeLoadingMessage = () => {
   const loadingMessage = document.querySelector('.loading');
   productsSection.removeChild(loadingMessage);
 };
-removeLoadingMessage();
+
+const displaysErrorMessage = () => {
+  const errorMessage = document.createElement('span');
+  errorMessage.innerText = 'Algum erro ocorreu, recarregue a página e tente novamente';
+  errorMessage.classList.add('error');
+  productsSection.appendChild(errorMessage);
+};
+
+// para cada produto da lista, adiciona o produto, formatado pela função createProductElement, ao html
+const getProductsList = async () => {
+  try {
+    const productsList = await fetchProductsList('computador');
+    productsList.forEach((product) => {
+      productsSection.appendChild(createProductElement(product));
+    });
+  } catch {
+    displaysErrorMessage();
+  } finally {
+    removeLoadingMessage();
+  }
+};
+
+getProductsList();
