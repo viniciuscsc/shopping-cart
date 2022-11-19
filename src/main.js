@@ -46,9 +46,3 @@ const getProductsList = async () => {
 };
 
 getProductsList();
-
-// Ao clicar no botão Adicionar ao carrinho:
-// O id do produto deve ser adicionado ao localStorage utilizando a função saveCartID, que já está implementada no arquivo helpers/cartFunctions;
-
-// capturar o id do produto:
-// botaoTarget.parentElement.firstElementChild.innerHTML
