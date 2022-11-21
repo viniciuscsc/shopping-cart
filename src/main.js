@@ -1,10 +1,8 @@
-import { getAddress, searchCep } from './helpers/cepFunctions';
+import { searchCep } from './helpers/cepFunctions';
 import { fetchProduct, fetchProductsList } from './helpers/fetchFunctions';
 import { createCartProductElement, createProductElement } from './helpers/shopFunctions';
 import { getSavedCartIDs } from './helpers/cartFunctions';
 import './style.css';
-
-document.querySelector('.cep-button').addEventListener('click', searchCep);
 
 // cria variável para a section de produtos
 const productsSection = document.querySelector('.products');
@@ -59,9 +57,4 @@ const totalPrice = document.querySelector('.total-price');
 const totalPriceValue = localStorage.getItem('totalPrice');
 totalPrice.innerText = totalPriceValue;
 
-const elementoEndereco = document.querySelector('.cart__address');
-const end = await getAddress('01001000');
-elementoEndereco.innerText = end;
-
-const cepInput = document.querySelector('.cep-input');
-console.log(cepInput);
+document.querySelector('.cep-button').addEventListener('click', searchCep);

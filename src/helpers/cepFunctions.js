@@ -15,6 +15,14 @@ export const getAddress = async (cep) => {
   return `${street} - ${district} - ${city} - ${state}`;
 };
 
-export const searchCep = () => {
-  // seu código aqui
+export const searchCep = async () => {
+  const cartAddress = document.querySelector('.cart__address');
+  try {
+    const cepInput = document.querySelector('.cep-input');
+    const cepInputValue = cepInput.value;
+    const fullAddress = await getAddress(cepInputValue);
+    cartAddress.innerText = fullAddress;
+  } catch {
+    cartAddress.innerText = 'CEP não encontrado';
+  }
 };
